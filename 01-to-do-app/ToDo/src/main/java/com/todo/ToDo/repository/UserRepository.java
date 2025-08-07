@@ -1,5 +1,7 @@
 package com.todo.ToDo.repository;
 
+import java.util.List;
+
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
@@ -24,6 +26,13 @@ public class UserRepository implements UserInterface {
         userModel.setRol(Rol.valueOf(resultSet.getString("rol")));
         return userModel;
     };
+
+    @Override
+    public List<UserModel> listAllUSers(){
+        String query = "SELECT username, password, rol FROM Users";
+        List<UserModel> listAllusers = jdbcTemplate.query(query, userMapper);
+        return listAllusers;
+    }
 
     @Override
     public void saveUser(UserModel userModel) {
