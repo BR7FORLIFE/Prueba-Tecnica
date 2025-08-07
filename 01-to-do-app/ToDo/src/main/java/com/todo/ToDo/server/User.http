@@ -1,0 +1,19 @@
+###
+POST http://localhost:8080/api/auth/register 
+Accept: application/json
+
+{
+    "username":"bryan",
+    "password":"contraseña",
+    "rol":"ADMIN"
+}
+
+###
+POST http://localhost:8080/api/auth/login
+Accept: application/json
+
+{
+    "username":"bryan",
+    "password":"contraseña",
+    "rol": "ADMIN"
+}

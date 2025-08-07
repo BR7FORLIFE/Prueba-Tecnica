@@ -1,5 +1,6 @@
 package com.todo.ToDo.security.config;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -35,7 +36,7 @@ public class SecurityConfig {
                     .addFilterBefore(jwtMiddleware, UsernamePasswordAuthenticationFilter.class)
                     .build();
     }
-
+    
     public AuthenticationManager authenticationManager(AuthenticationConfiguration auth) throws Exception{
         return auth.getAuthenticationManager();
     }
