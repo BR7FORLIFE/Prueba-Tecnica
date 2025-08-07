@@ -28,21 +28,21 @@ public class TaskRepository implements TaskInterface {
     };
 
     @Override
-    public List<Task> listOfTask(UserModel userModel) {
+    public List<Task> listOfTask(Long user_id) {
         String query = "SELECT id, nameOfTask, complete FROM Tasks WHERE user_id = ?";
-        return jdbcTemplate.query(query, taskRowMapper, userModel.getId());
+        return jdbcTemplate.query(query, taskRowMapper, user_id);
     }
 
     @Override
-    public void createTask(Task task, UserModel userModel) {
+    public void createTask(Task task) {
         String query = "INSERT INTO Tasks (user_id, complete, nameOfTask) VALUES (?, ?, ?)";
         jdbcTemplate.update(query, task.getUser_id(), task.getComplete(), task.getNameOfTask());
     }
 
     @Override
-    public Task taskById(Long taskId, UserModel userModel) {
-        String query = "SELECT user_id, complete, nameOfTask FROM Tasks WHERE id = ? AND user_id = ?";
-        return jdbcTemplate.queryForObject(query, taskRowMapper, taskId, userModel.getId());
+    public Task taskById(Long taskId) {
+        String query = "SELECT user_id, complete, nameOfTask FROM Tasks WHERE id = ?";
+        return jdbcTemplate.queryForObject(query, taskRowMapper, taskId);
     }
 
     @Override
