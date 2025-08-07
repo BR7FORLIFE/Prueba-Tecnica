@@ -1,0 +1,18 @@
+###
+
+GET http://localhost:8080/api/task/list/1
+
+###
+GET http://localhost:8080/api/task/getTask/1
+
+### 
+POST http://localhost:8080/api/task/create/ 
+Accept: application/json
+
+{
+   "complete": false,
+   "nameOfTask": "barrer el cuarto" 
+}
+
+###
+DELETE  http://localhost:8080/api/task/delete/1

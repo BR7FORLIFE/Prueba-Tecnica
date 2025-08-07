@@ -30,7 +30,7 @@ public class UserDetailsServices implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException{
         try {
-            String query = "SELECT id, username, password, rol WHERE id = ?";
+            String query = "SELECT id, username, password, rol FROM Users WHERE id = ?";
             UserModel userModel = jdbcTemplate.queryForObject(query,userMapper, username);
             return userModel;
 
@@ -38,5 +38,4 @@ public class UserDetailsServices implements UserDetailsService {
             throw new UsernameNotFoundException("username not found in database!");
         }
     }
-    
 }
