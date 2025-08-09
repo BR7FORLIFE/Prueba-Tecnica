@@ -25,29 +25,33 @@ public class SecurityConfig {
 
     private final UserDetailsService userDetailsService;
     private final JwtMiddleware jwtMiddleware;
-    
+
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception{
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http
-                    .csrf(request -> request.disable())
-                    .authorizeHttpRequests(request -> request.requestMatchers("/api/auth/register", "/api/auth/login").permitAll().anyRequest().authenticated())
-                    .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                    .authenticationProvider(authenticationProvider())
-                    .addFilterBefore(jwtMiddleware, UsernamePasswordAuthenticationFilter.class)
-                    .build();
+                .csrf(request -> request.disable())
+                .authorizeHttpRequests(request -> request.requestMatchers("/api/auth/register", "/api/auth/login")
+                        .permitAll().anyRequest().authenticated())
+                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                .authenticationProvider(authenticationProvider())
+                .addFilterBefore(jwtMiddleware, UsernamePasswordAuthenticationFilter.class)
+                .build();
     }
-    
-    public AuthenticationManager authenticationManager(AuthenticationConfiguration auth) throws Exception{
+
+    @Bean
+    public AuthenticationManager authenticationManager(AuthenticationConfiguration auth) throws Exception {
         return auth.getAuthenticationManager();
     }
 
-    public AuthenticationProvider authenticationProvider(){
+    @Bean
+    public AuthenticationProvider authenticationProvider() {
         DaoAuthenticationProvider provider = new DaoAuthenticationProvider(userDetailsService);
         provider.setPasswordEncoder(passwordEncoder());
         return provider;
     }
 
-    public PasswordEncoder passwordEncoder(){
+    @Bean
+    public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 }
