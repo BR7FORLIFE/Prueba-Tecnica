@@ -1,0 +1,73 @@
+=========================
+SPRING DATA JPA KEYWORDS
+=========================
+
+BÁSICOS
+-------
+findBy           -> Busca registros según la condición
+existsBy         -> Devuelve true/false si existe
+countBy          -> Cuenta registros que cumplen condición
+deleteBy         -> Elimina registros que cumplen condición
+removeBy         -> Elimina registros (similar a deleteBy)
+
+CONDICIONES LÓGICAS
+-------------------
+And               -> AND lógico
+Or                -> OR lógico
+
+OPERADORES DE COMPARACIÓN
+-------------------------
+Between           -> Entre dos valores
+LessThan          -> <
+LessThanEqual     -> <=
+GreaterThan       -> >
+GreaterThanEqual  -> >=
+
+LISTAS Y COINCIDENCIAS
+----------------------
+In                -> En lista
+NotIn             -> No en lista
+Like              -> LIKE SQL (patrón con %)
+NotLike           -> NOT LIKE
+StartingWith      -> Empieza con
+EndingWith        -> Termina con
+Containing        -> Contiene
+NotContaining     -> No contiene
+
+IGUALDAD Y NEGACIÓN
+-------------------
+Is                -> Igual que (=)
+Equals            -> Igual que (=)
+Not               -> Negación (!= o <>)
+IsNot             -> Negación (!= o <>)
+IsNull            -> Es nulo
+IsNotNull         -> No es nulo
+
+BOOLEANOS
+---------
+True              -> Campo boolean true
+False             -> Campo boolean false
+
+ORDENAMIENTO
+------------
+OrderBy           -> Ordenar resultados
+Asc               -> Ascendente
+Desc              -> Descendente
+
+FECHAS Y TIEMPOS
+----------------
+Before            -> Antes de
+After             -> Después de
+
+=========================
+RECUPERAR TODOS LOS REGISTROS
+=========================
+
+Opción 1: Usar método ya incluido en JpaRepository
+---------------------------------------------------
+findAll()
+
+Opción 2: Personalizar consulta con @Query
+------------------------------------------
+@Query("SELECT u FROM UserEntity u")
+List<UserEntity> findAllUsers();
