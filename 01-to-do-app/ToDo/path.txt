@@ -1,0 +1,128 @@
+.
+├── Documentation.md
+├── HELP.md
+├── mvnw
+├── mvnw.cmd
+├── path.txt
+├── pom.xml
+├── Requirements.md
+├── src
+│  ├── main
+│  │  ├── java
+│  │  │  └── com
+│  │  │     └── todo
+│  │  │        └── ToDo
+│  │  │           ├── controllers
+│  │  │           │  └── TaskController.java
+│  │  │           ├── database
+│  │  │           │  └── ToDo.sql
+│  │  │           ├── enums
+│  │  │           │  └── Rol.java
+│  │  │           ├── interfaces
+│  │  │           │  ├── TaskInterface.java
+│  │  │           │  └── UserInterface.java
+│  │  │           ├── models
+│  │  │           │  ├── Task.java
+│  │  │           │  └── UserModel.java
+│  │  │           ├── repository
+│  │  │           │  ├── TaskRepository.java
+│  │  │           │  └── UserRepository.java
+│  │  │           ├── security
+│  │  │           │  ├── config
+│  │  │           │  │  └── SecurityConfig.java
+│  │  │           │  ├── controllers
+│  │  │           │  │  └── AuthController.java
+│  │  │           │  ├── DetailsServices
+│  │  │           │  │  └── UserDetailsServices.java
+│  │  │           │  ├── Dtos
+│  │  │           │  │  ├── AuthenticationRequest.java
+│  │  │           │  │  └── AuthenticationResponse.java
+│  │  │           │  ├── jwt
+│  │  │           │  │  └── Jwt.java
+│  │  │           │  ├── middlewares
+│  │  │           │  │  └── JwtMiddleware.java
+│  │  │           │  └── services
+│  │  │           │     └── AuthServices.java
+│  │  │           ├── server
+│  │  │           │  ├── Task.http
+│  │  │           │  └── User.http
+│  │  │           ├── services
+│  │  │           │  ├── TaskServices.java
+│  │  │           │  └── UserServices.java
+│  │  │           └── ToDoApplication.java
+│  │  └── resources
+│  │     ├── application.properties
+│  │     ├── static
+│  │     └── templates
+│  └── test
+│     └── java
+│        └── com
+│           └── todo
+│              └── ToDo
+│                 └── ToDoApplicationTests.java
+└── target
+   ├── classes
+   │  ├── application.properties
+   │  └── com
+   │     └── todo
+   │        └── ToDo
+   │           ├── controllers
+   │           │  └── TaskController.class
+   │           ├── database
+   │           │  └── ToDo.sql
+   │           ├── enums
+   │           │  └── Rol.class
+   │           ├── interfaces
+   │           │  ├── TaskInterface.class
+   │           │  └── UserInterface.class
+   │           ├── models
+   │           │  ├── Task.class
+   │           │  └── UserModel.class
+   │           ├── repository
+   │           │  ├── TaskRepository.class
+   │           │  └── UserRepository.class
+   │           ├── security
+   │           │  ├── config
+   │           │  │  └── SecurityConfig.class
+   │           │  ├── controllers
+   │           │  │  └── AuthController.class
+   │           │  ├── DetailsServices
+   │           │  │  └── UserDetailsServices.class
+   │           │  ├── Dtos
+   │           │  │  ├── AuthenticationRequest.class
+   │           │  │  └── AuthenticationResponse.class
+   │           │  ├── jwt
+   │           │  │  └── Jwt.class
+   │           │  ├── middlewares
+   │           │  │  └── JwtMiddleware.class
+   │           │  └── services
+   │           │     └── AuthServices.class
+   │           ├── server
+   │           │  ├── Task.http
+   │           │  └── User.http
+   │           ├── services
+   │           │  ├── TaskServices.class
+   │           │  └── UserServices.class
+   │           └── ToDoApplication.class
+   ├── generated-sources
+   │  └── annotations
+   ├── generated-test-sources
+   │  └── test-annotations
+   ├── maven-status
+   │  └── maven-compiler-plugin
+   │     ├── compile
+   │     │  └── default-compile
+   │     │     ├── createdFiles.lst
+   │     │     └── inputFiles.lst
+   │     └── testCompile
+   │        └── default-testCompile
+   │           ├── createdFiles.lst
+   │           └── inputFiles.lst
+   ├── surefire-reports
+   │  ├── com.todo.ToDo.ToDoApplicationTests.txt
+   │  └── TEST-com.todo.ToDo.ToDoApplicationTests.xml
+   └── test-classes
+      └── com
+         └── todo
+            └── ToDo
+               └── ToDoApplicationTests.class
