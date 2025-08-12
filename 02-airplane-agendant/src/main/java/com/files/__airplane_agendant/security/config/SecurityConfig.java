@@ -14,6 +14,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+import com.files.__airplane_agendant.security.middlewares.JwtMidleware;
+
 import lombok.RequiredArgsConstructor;
 
 @Configuration
@@ -21,6 +23,7 @@ import lombok.RequiredArgsConstructor;
 public class SecurityConfig {
 
     private final UserDetailsService userDetailsService;
+    private final JwtMidleware jwtMidleware;
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -29,7 +32,7 @@ public class SecurityConfig {
                         .permitAll().anyRequest().authenticated())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authenticationProvider(authenticationProvider())
-                .addFilterBefore(null, UsernamePasswordAuthenticationFilter.class)
+                .addFilterBefore(jwtMidleware, UsernamePasswordAuthenticationFilter.class)
                 .build();
     }
 
