@@ -62,7 +62,6 @@ public class Jwt {
             return parser.parseSignedClaims(token).getPayload();
         } catch (Exception e) {
             e.printStackTrace();
-            ;
         }
         return null;
     }
