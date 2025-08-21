@@ -27,7 +27,7 @@ import lombok.Data;
 @Entity
 @Table(name = "user")
 public class User implements UserDetails {
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
@@ -41,7 +41,7 @@ public class User implements UserDetails {
     @Column(nullable = false)
     private String passport;
 
-    @Column(nullable = false)   
+    @Column(nullable = false)
     private String password;
 
     @Enumerated(EnumType.STRING)
@@ -52,7 +52,7 @@ public class User implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(() -> "ROLE_" + roles.name());
+        return List.of(() -> roles.name());
     }
 
     @Override
