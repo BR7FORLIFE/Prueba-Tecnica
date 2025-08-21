@@ -79,5 +79,5 @@ public class Jwt {
 
     public boolean expirationToken(String token) {
         return extractInfoJwt(token).getExpiration().before(new Date());
-    }
+    }   
 }
