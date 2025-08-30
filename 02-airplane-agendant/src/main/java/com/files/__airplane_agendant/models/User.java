@@ -19,13 +19,14 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import jakarta.persistence.Version;
 import lombok.Builder;
 import lombok.Data;
 
 @Builder
 @Data
 @Entity
-@Table(name = "user")
+@Table(name = "users")
 public class User implements UserDetails {
 
     @Id
@@ -36,7 +37,7 @@ public class User implements UserDetails {
     private String username;
 
     @Column(nullable = false)
-    private Long identification;
+    private String identification;
 
     @Column(nullable = false)
     private String passport;
@@ -46,6 +47,9 @@ public class User implements UserDetails {
 
     @Enumerated(EnumType.STRING)
     private UserRoles roles;
+
+    @Version
+    private Long version;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Reservation> reservations;

@@ -25,7 +25,7 @@ public class UserServices {
 
     public void saveUser(AuthenticationRequest userRequest){
         User user = User.builder()
-                    .id(userRequest.getId())
+                    .id(UUID.randomUUID())
                     .identification(userRequest.getIdentification())
                     .passport(userRequest.getPassport())
                     .password(passwordEncoder.encode(userRequest.getPassword()))

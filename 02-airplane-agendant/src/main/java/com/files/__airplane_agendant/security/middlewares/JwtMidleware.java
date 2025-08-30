@@ -36,12 +36,13 @@ public class JwtMidleware extends OncePerRequestFilter {
 
         if (headerAuthorization == null || !headerAuthorization.startsWith("Bearer")) {
             filterChain.doFilter(request, response);
+            return;
         }
 
         token = headerAuthorization.substring(7);
         username = jwt.getUsername(token);
 
-        if (username != null && SecurityContextHolder.getContext() == null) {
+        if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
             UserDetails userDetails = userDetailsService.loadUserByUsername(username);
 
             UsernamePasswordAuthenticationToken authenticationUser = new UsernamePasswordAuthenticationToken(

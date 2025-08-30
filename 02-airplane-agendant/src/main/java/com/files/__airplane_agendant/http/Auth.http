@@ -1,0 +1,11 @@
+### post register
+POST http://localhost:8080/api/auth/register
+Content-Type: application/json
+
+{
+    "username": "jhon",
+    "password": "123456",
+    "email": "jhon@gmail.com",
+    "identification": 4205637975,
+    "passport": "456-789"
+}

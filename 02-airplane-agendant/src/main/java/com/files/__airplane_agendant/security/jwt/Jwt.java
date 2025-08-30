@@ -12,8 +12,6 @@ import javax.crypto.SecretKey;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
-
-import com.files.__airplane_agendant.Dtos.users.AuthenticationRequest;
 import com.files.__airplane_agendant.models.User;
 
 import io.jsonwebtoken.Claims;
@@ -72,12 +70,12 @@ public class Jwt {
 
     public boolean isValidToken(UserDetails user, String token) {
         final String idJwt = extractInfoJwt(token).getSubject();
-        UUID idUserDetails = ((AuthenticationRequest) user).getId();
+        UUID idUserDetails = ((User) user).getId();
 
         return (idJwt.equals(String.valueOf(idUserDetails)) && !expirationToken(token));
     }
 
     public boolean expirationToken(String token) {
         return extractInfoJwt(token).getExpiration().before(new Date());
-    }   
+    }
 }

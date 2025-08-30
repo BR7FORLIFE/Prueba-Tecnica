@@ -1,7 +1,5 @@
 package com.files.__airplane_agendant.Dtos.users;
 
-import java.util.UUID;
-
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -9,8 +7,6 @@ import lombok.Data;
 
 @Data
 public class AuthenticationRequest {
-    
-    private UUID id;
 
     @NotNull(message = "el username no puede ser nulo!")
     private String username;
@@ -23,8 +19,8 @@ public class AuthenticationRequest {
     private String email;
 
     @NotNull(message = "La identificacion debe ser valida!")
-    @Size(min = 10)
-    private Long identification;
+    @Size(min = 10, max = 10, message = "The identification not have ten digits")
+    private String identification;
 
     @NotNull(message = "El passport no puede ser nulo!")
     private String passport;

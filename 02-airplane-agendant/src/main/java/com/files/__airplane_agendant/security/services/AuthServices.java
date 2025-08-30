@@ -1,5 +1,7 @@
 package com.files.__airplane_agendant.security.services;
 
+import java.util.UUID;
+
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -26,7 +28,7 @@ public class AuthServices {
     public AuthenticationResponse register(AuthenticationRequest request) {
 
         User user = User.builder()
-                .id(request.getId())
+                .id(UUID.randomUUID())
                 .identification(request.getIdentification())
                 .passport(request.getPassport())
                 .password(passwordEncoder.encode(request.getPassword()))
