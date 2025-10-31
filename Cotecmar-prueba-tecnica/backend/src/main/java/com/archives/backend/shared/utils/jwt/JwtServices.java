@@ -6,11 +6,14 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.crypto.SecretKey;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+
+import com.archives.backend.security.model.UserModel;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtException;
@@ -32,7 +35,7 @@ public class JwtServices {
         this.secret_key = Keys.hmacShaKeyFor(secret_firm.getBytes(StandardCharsets.UTF_8));
     }
 
-    public String generateJwt() {
+    public String generateJwt(UserModel userModel) {
         Instant timestampIssueAt = Instant.now();
         Instant timestampExpiration = timestampIssueAt.plusSeconds(3600);
 
@@ -40,12 +43,12 @@ public class JwtServices {
         Date expiration = Date.from(timestampExpiration);
 
         Map<String, Object> claims = new HashMap<>();
-        claims.put("username", "");
-        claims.put("rols", List.of());
+        claims.put("username", userModel.getName());
+        claims.put("rols", userModel.getRols());
 
         return Jwts
                 .builder()
-                .subject(null)
+                .subject(String.valueOf(userModel.getId()))
                 .claims(claims)
                 .signWith(this.secret_key)
                 .issuedAt(issueAt)

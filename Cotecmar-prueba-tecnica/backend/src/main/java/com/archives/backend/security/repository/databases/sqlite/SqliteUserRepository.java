@@ -5,10 +5,10 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import com.archives.backend.security.model.UserModel;
-import com.archives.backend.security.repository.IUserReposirory;
+import com.archives.backend.security.repository.IUserRepository;
 
 @Profile("sqlite")
 @Repository
-public interface SqliteUserRepository extends JpaRepository<UserModel, Long>, IUserReposirory {
+public interface SqliteUserRepository extends JpaRepository<UserModel, Long>, IUserRepository {
 
 }

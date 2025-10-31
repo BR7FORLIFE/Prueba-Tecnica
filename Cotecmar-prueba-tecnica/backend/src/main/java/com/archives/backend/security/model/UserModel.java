@@ -1,7 +1,13 @@
 package com.archives.backend.security.model;
 
+import java.util.Set;
+
+import com.archives.backend.security.enums.RolUser;
+
 import jakarta.persistence.Column;
+import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -21,5 +27,8 @@ public class UserModel {
     private String name;
 
     @Column(name = "Contraseña")
-    private Integer password;
+    private String password;
+
+    @ElementCollection(fetch = FetchType.EAGER)
+    private Set<RolUser> rols;
 }
