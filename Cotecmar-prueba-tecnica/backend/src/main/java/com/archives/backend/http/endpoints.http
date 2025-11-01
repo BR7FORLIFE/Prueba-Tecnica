@@ -1,0 +1,9 @@
+### registrar usuario ###
+POST http://localhost:8080/api/auth/register HTTP/1.1
+Content-Type: application/json
+
+{
+    "username": "bryan",
+    "password": "12354",
+    "rols": ["USER"]
+}
