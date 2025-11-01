@@ -59,9 +59,8 @@
 
 			<!-- https://mvnrepository.com/artifact/org.hibernate.dialect/sqlite-dialect -->
 		<dependency>
-			<groupId>com.github.gwenn</groupId>
-			<artifactId>sqlite-dialect</artifactId>
-			<version>0.1.2</version>
+			<groupId>org.hibernate.orm</groupId>
+			<artifactId>hibernate-community-dialects</artifactId>
 		</dependency>
 
 		<dependency>
