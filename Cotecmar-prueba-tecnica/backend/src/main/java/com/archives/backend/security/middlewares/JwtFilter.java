@@ -50,7 +50,8 @@ public class JwtFilter extends OncePerRequestFilter {
             try {
                 username = jwtServices.extractUsername(token);
             } catch (Exception e) {
-                response.sendError(403);
+                response.sendError(HttpServletResponse.SC_FORBIDDEN, "No authorize!");
+                return;
             }
 
         }
@@ -61,19 +62,22 @@ public class JwtFilter extends OncePerRequestFilter {
             try {
 
                 if (!jwtServices.isExpiredjwt(token)) {
-                    UsernamePasswordAuthenticationToken userToken = new UsernamePasswordAuthenticationToken(username,
+                    UsernamePasswordAuthenticationToken userToken = new UsernamePasswordAuthenticationToken(
+                            userDetails,
                             null, userDetails.getAuthorities());
 
                     SecurityContextHolder.getContext().setAuthentication(userToken);
 
-                    filterChain.doFilter(request, response);
+                } else {
+                    response.sendError(HttpServletResponse.SC_FORBIDDEN, "Token expired");
+                    return;
                 }
-
-                filterChain.doFilter(request, response);
 
             } catch (Exception e) {
                 response.sendError(403);
+                return;
             }
         }
+        filterChain.doFilter(request, response);
     }
 }
