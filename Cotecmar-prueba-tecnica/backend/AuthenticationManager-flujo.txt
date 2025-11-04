@@ -1,0 +1,20 @@
+[User submits login]
+   ↓
+Controller (UserService.login)
+   ↓
+AuthenticationManager.authenticate()
+   ↓
+┌───────────────────────────────────────────────────────┐
+│ Itera sobre AuthenticationProviders registrados       │
+│ (por ej: DaoAuthenticationProvider, JwtProvider, etc) │
+└───────────────────────────────────────────────────────┘
+   ↓
+DaoAuthenticationProvider
+   ↓
+UserDetailsService.loadUserByUsername(username)
+   ↓
+PasswordEncoder.matches(rawPassword, storedHash)
+   ↓
+Si todo OK → devuelve Authentication autenticado
+   ↓
+AuthenticationManager → devuelve al controller

@@ -59,7 +59,7 @@ public class UserService {
 
         RegisterUserResponseDto response = new RegisterUserResponseDto("User register succesfull!",
                 Date.from(timestamp));
-
+        
         return Result.ok(response);
     }
 
