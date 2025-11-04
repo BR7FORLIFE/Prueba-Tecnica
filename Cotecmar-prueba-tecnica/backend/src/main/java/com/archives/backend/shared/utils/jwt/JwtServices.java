@@ -40,7 +40,7 @@ public class JwtServices {
         Date expiration = Date.from(timestampExpiration);
 
         Map<String, Object> claims = new HashMap<>();
-        claims.put("rols", user.getAuthorities());
+        claims.put("rols", user.getAuthorities().stream().map(rol -> rol.getAuthority()).toList());
 
         return Jwts
                 .builder()
@@ -64,7 +64,7 @@ public class JwtServices {
 
     public String extractUsername(String token) throws Exception {
         try {
-            String username = (String) extractAllClaims(token).get("username");
+            String username = extractAllClaims(token).getSubject();
             return username;
         } catch (Exception e) {
             throw new Exception("Error to get username of jwt!");
@@ -72,6 +72,6 @@ public class JwtServices {
     }
 
     public boolean isExpiredjwt(String token) {
-        return extractAllClaims(token).getExpiration().after(new Date());
+        return extractAllClaims(token).getExpiration().before(new Date());
     }
 }
