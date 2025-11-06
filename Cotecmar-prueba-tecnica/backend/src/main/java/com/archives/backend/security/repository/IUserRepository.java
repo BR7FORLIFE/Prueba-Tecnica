@@ -9,9 +9,9 @@ import com.archives.backend.security.model.UserModel;
 
 @NoRepositoryBean
 public interface IUserRepository extends Repository<UserModel, Long> {
-    Optional<UserModel> findByName(String name);
+    Optional<UserModel> findByUsername(String username);
 
     UserModel save(UserModel userModel);
 
-    boolean existsByName(String name);
+    boolean existsByUsername(String username);
 }
