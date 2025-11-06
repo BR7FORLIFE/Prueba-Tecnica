@@ -50,6 +50,7 @@ public class JwtFilter extends OncePerRequestFilter {
             try {
                 username = jwtServices.extractUsername(token);
             } catch (Exception e) {
+                clearAuthCookie(response);
                 response.sendError(HttpServletResponse.SC_FORBIDDEN, "No authorize!");
                 return;
             }
@@ -70,6 +71,7 @@ public class JwtFilter extends OncePerRequestFilter {
 
                 } else {
                     response.sendError(HttpServletResponse.SC_FORBIDDEN, "Token expired");
+                    clearAuthCookie(response);
                     return;
                 }
 
@@ -79,5 +81,21 @@ public class JwtFilter extends OncePerRequestFilter {
             }
         }
         filterChain.doFilter(request, response);
+    }
+
+    private void clearAuthCookie(HttpServletResponse response) {
+        Cookie expired = new Cookie("AUTH_TOKEN", "");
+        expired.setHttpOnly(true);
+        expired.setPath("/");
+        expired.setMaxAge(0);
+        expired.setSecure(false);
+        response.addCookie(expired);
+    }
+
+    // Ignora rutas públicas
+    @Override
+    protected boolean shouldNotFilter(HttpServletRequest request) {
+        String path = request.getServletPath();
+        return path.equals("/register") || path.equals("/login");
     }
 }
