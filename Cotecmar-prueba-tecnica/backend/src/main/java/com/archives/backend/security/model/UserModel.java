@@ -25,10 +25,10 @@ public class UserModel {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(name = "Usuario")
-    private String name;
+    @Column(name = "usuario")
+    private String username;
 
-    @Column(name = "Contraseña")
+    @Column(name = "contrasena")
     private String password;
 
     @ElementCollection(fetch = FetchType.EAGER)
