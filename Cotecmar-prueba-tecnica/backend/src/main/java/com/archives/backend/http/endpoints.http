@@ -3,7 +3,7 @@ POST http://localhost:8080/api/auth/register HTTP/1.1
 Content-Type: application/json
 
 {
-    "username": "juan",
+    "username": "arturo",
     "password": "12354",
     "rols": ["USER"]
 }
@@ -12,8 +12,9 @@ Content-Type: application/json
 
 POST http://localhost:8080/api/auth/login HTTP/1.1
 Content-Type: application/json
+Cookie: AUTH_TOKEN=eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhcnR1cm8iLCJyb2xzIjpbIlJPTEVfVVNFUiJdLCJpYXQiOjE3NjI0NDEyNjgsImV4cCI6MTc2MjQ0NDg2OH0.geXmju5nG66524o90u0Ni0xfYp4d9NAyKr4gBT5feOyAIhyCrlrR_rhOLp81WWWNfylYHh2zoMzmSnrutho5Kg; Max-Age=3600; Expires=Thu, 06 Nov 2025 16:01:08 GMT; Path=/; HttpOnly
 
 {
-    "username": "juan",
+    "username": "arturo",
     "password": "12345"
 }
