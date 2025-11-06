@@ -13,6 +13,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.archives.backend.security.CustomUserDetails;
 import com.archives.backend.security.dtos.request.LoginUserRequestDto;
 import com.archives.backend.security.dtos.request.RegisterUserRequestDto;
 import com.archives.backend.security.dtos.response.LoginUserResponseDto;
@@ -41,15 +42,23 @@ public class UserService {
     @Autowired
     private JwtServices jwtServices;
 
-    public Result<RegisterUserResponseDto, Exception> register(RegisterUserRequestDto dtoUser) {
-        boolean existsUser = userRepository.existsByName(dtoUser.username());
+    public Result<RegisterUserResponseDto, Exception> register(RegisterUserRequestDto dtoUser,
+            HttpServletResponse response) {
+        boolean existsUser = userRepository.existsByUsername(dtoUser.username());
 
         if (existsUser) {
+            Cookie expiredCookie = new Cookie("AUTH_TOKEN", "");
+            expiredCookie.setHttpOnly(true);
+            expiredCookie.setMaxAge(0);
+            expiredCookie.setPath("/");
+            expiredCookie.setSecure(true);
+
+            response.addCookie(expiredCookie);
             return Result.error(new Exception("The user is already register!"));
         }
 
         UserModel userModel = new UserModel();
-        userModel.setName(dtoUser.username());
+        userModel.setUsername(dtoUser.username());
         userModel.setPassword(passwordEncoder.encode(dtoUser.password()));
         userModel.setRols(Set.of(RolUser.USER));
 
@@ -57,14 +66,35 @@ public class UserService {
 
         Instant timestamp = Instant.now();
 
-        RegisterUserResponseDto response = new RegisterUserResponseDto("User register succesfull!",
-                Date.from(timestamp));
-        
-        return Result.ok(response);
+        // generamos el token jwt para el nuevo usuario registrado!
+        UserDetails userDetailsAuth = new CustomUserDetails(userModel);
+
+        String token = jwtServices.generateJwt(userDetailsAuth);
+
+        // enviamos la cookie
+        Cookie cookie = new Cookie("AUTH_TOKEN", token);
+        cookie.setHttpOnly(true);
+        cookie.setMaxAge(60 * 60);
+        cookie.setPath("/");
+        cookie.setSecure(false);
+
+        // añadimos en la response
+        response.addCookie(cookie);
+
+        RegisterUserResponseDto responseDto = new RegisterUserResponseDto("User register succesfull!",
+                Date.from(timestamp), token);
+
+        return Result.ok(responseDto);
     }
 
     public Result<LoginUserResponseDto, Exception> login(LoginUserRequestDto userDto, HttpServletResponse response) {
         try {
+
+            UserModel prove = userRepository.findByUsername(userDto.username()).orElseThrow();
+            System.out.println(">>> Raw password: " + userDto.password());
+            System.out.println(">>> Encoded in DB: " + prove.getPassword());
+            System.out.println(">>> Matches: " + passwordEncoder.matches(userDto.password(), prove.getPassword()));
+
             Authentication auth = authenticationManager
                     .authenticate(new UsernamePasswordAuthenticationToken(userDto.username(), userDto.password()));
 
@@ -74,9 +104,9 @@ public class UserService {
 
             Cookie cookie = new Cookie("AUTH_TOKEN", token);
             cookie.setHttpOnly(true);
-            cookie.setSecure(true);
+            cookie.setSecure(false);
             cookie.setPath("/");
-            cookie.setMaxAge(60 * 60 * 24);
+            cookie.setMaxAge(60 * 60);
 
             response.addCookie(cookie);
 
@@ -85,6 +115,12 @@ public class UserService {
             return Result.ok(responseUser);
 
         } catch (AuthenticationException e) {
+            Cookie expiredCookie = new Cookie("AUTH_TOKEN", "");
+            expiredCookie.setHttpOnly(false);
+            expiredCookie.setMaxAge(0);
+            expiredCookie.setPath("/");
+            expiredCookie.setSecure(true);
+
             return Result.error(new Exception("Fatal authentication in current user!"));
         }
     }
