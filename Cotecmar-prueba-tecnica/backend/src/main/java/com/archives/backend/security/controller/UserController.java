@@ -25,8 +25,8 @@ public class UserController {
     private UserService userService;
 
     @PostMapping("/register")
-    public ResponseEntity<?> register(@RequestBody @Valid RegisterUserRequestDto dtoUser) {
-        var result = userService.register(dtoUser);
+    public ResponseEntity<?> register(@RequestBody @Valid RegisterUserRequestDto dtoUser, HttpServletResponse response) {
+        var result = userService.register(dtoUser, response);
         return ResponseEntityHelper.toResponseEntity(result);
     }
 
