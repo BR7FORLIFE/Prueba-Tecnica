@@ -3,18 +3,21 @@ POST http://localhost:8080/api/auth/register HTTP/1.1
 Content-Type: application/json
 
 {
-    "username": "arturo",
-    "password": "12354",
-    "rols": ["USER"]
+    "username": "carlos",
+    "password": "12345"
 }
 
 ### hacer login del usuario ###
 
 POST http://localhost:8080/api/auth/login HTTP/1.1
 Content-Type: application/json
-Cookie: AUTH_TOKEN=eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhcnR1cm8iLCJyb2xzIjpbIlJPTEVfVVNFUiJdLCJpYXQiOjE3NjI0NDEyNjgsImV4cCI6MTc2MjQ0NDg2OH0.geXmju5nG66524o90u0Ni0xfYp4d9NAyKr4gBT5feOyAIhyCrlrR_rhOLp81WWWNfylYHh2zoMzmSnrutho5Kg; Max-Age=3600; Expires=Thu, 06 Nov 2025 16:01:08 GMT; Path=/; HttpOnly
+Cookie:AUTH_TOKEN=eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJjYXJsb3MiLCJyb2xzIjpbIlJPTEVfVVNFUiJdLCJpYXQiOjE3NjI1MzQyNDQsImV4cCI6MTc2MjUzNzg0NH0.wgz_z6AE1Iw2HYg7H4EYhqFjSw41H0nuNCCW6ySBJVHne7BhmEiS2LrJ13OyWaKAt3IsuqMAaBpPbDIkTR4LIQ
 
 {
-    "username": "arturo",
+    "username": "carlos",
     "password": "12345"
 }
+
+### testear los roles y autorizaciones
+GET  http://localhost:8080/api/auth HTTP/1.1
+Content-Type: application/json
