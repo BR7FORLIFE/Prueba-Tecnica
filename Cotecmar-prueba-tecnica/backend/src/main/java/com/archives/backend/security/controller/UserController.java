@@ -1,7 +1,12 @@
 package com.archives.backend.security.controller;
 
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,7 +30,8 @@ public class UserController {
     private UserService userService;
 
     @PostMapping("/register")
-    public ResponseEntity<?> register(@RequestBody @Valid RegisterUserRequestDto dtoUser, HttpServletResponse response) {
+    public ResponseEntity<?> register(@RequestBody @Valid RegisterUserRequestDto dtoUser,
+            HttpServletResponse response) {
         var result = userService.register(dtoUser, response);
         return ResponseEntityHelper.toResponseEntity(result);
     }
@@ -35,5 +41,15 @@ public class UserController {
             HttpServletResponse response) {
         var result = userService.login(dtoUser, response);
         return ResponseEntityHelper.toResponseEntity(result);
+    }
+
+    @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
+    @GetMapping
+    public ResponseEntity<Map<String, Object>> testAuthorities(Authentication auth) {
+
+        if (auth == null) {
+            return ResponseEntity.status(403).body(Map.of("message", "User not Authenticate!"));
+        }
+        return ResponseEntity.ok().body(Map.of("Authorities", auth.getAuthorities().toString()));
     }
 }
