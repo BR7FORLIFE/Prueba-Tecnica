@@ -1,0 +1,42 @@
+### endpoints para los proyectos
+
+### crear un proyecto
+POST http://localhost:8080/project HTTP/1.1
+Content-Type: application/json
+
+{
+    "idProject": "BICM",
+    "name": "oceanografico"
+}
+
+### listar todos los proyectos
+GET http://localhost:8080/project HTTP/1.1
+
+### listar project por su id
+GET http://localhost:8080/project/BICM HTTP/1.1
+
+### actualizar un proyecto
+PUT http://localhost:8080/project/BICM HTTP/1.1
+Content-Type: application/json
+
+{
+    "idProject": "ZAMP",
+    "name": "cotecmar"
+}
+
+### borrar un proyecto
+DELETE http://localhost:8080/project/BICM HTTP/1.1
+
+### asignar un bloque a un proyecto
+### BICM -> codigo del proyecto | 130-1110 -> codigo del bloque
+PUT http://localhost:8080/project/BICM/blocks/130-1110 HTTP/1.1
+Content-Type: application/json
+
+
+### asignar una lista de bloques a un projecto
+PUT http://localhost:8080/project/BICM/blocks HTTP/1.1
+Content-Type: application/json
+
+{
+    "blocks": ["135-1110", "130-3510", "130-3610", "135-3310", "100-2210"]
+}
