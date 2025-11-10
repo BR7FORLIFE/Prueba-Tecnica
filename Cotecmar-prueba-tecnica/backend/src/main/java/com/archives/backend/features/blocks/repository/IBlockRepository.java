@@ -17,7 +17,7 @@ public interface IBlockRepository extends Repository<BlocksModel, Long> {
 
     boolean existsById(Long id);
 
-    boolean existsByBlockCode(String blockCode);
+    boolean existsByblockCode(String blockCode);
 
     BlocksModel save(BlocksModel blocksModel);
 
