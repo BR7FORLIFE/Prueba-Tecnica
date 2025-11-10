@@ -21,6 +21,8 @@ public interface IProjectRepository extends Repository<ProjectModel, Long> {
 
     boolean existsByname(String name);
 
+    boolean existsByidProject(String idProject);
+
     ProjectModel save(ProjectModel projectModel);
 
     void delete(ProjectModel projectModel);
