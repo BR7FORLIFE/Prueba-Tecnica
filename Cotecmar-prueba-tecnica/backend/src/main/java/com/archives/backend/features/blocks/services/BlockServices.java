@@ -25,7 +25,7 @@ public class BlockServices {
 
     public Result<RegisterBlockResponseDto, Exception> registerBlock(RegisterBlockRequestDto dtoBlock) {
 
-        boolean existBlock = blockRepository.existsByBlockCode(dtoBlock.blockCode());
+        boolean existBlock = blockRepository.existsByblockCode(dtoBlock.blockCode());
 
         if (existBlock) {
             return Result.error(new Exception("the block already exits!"));
