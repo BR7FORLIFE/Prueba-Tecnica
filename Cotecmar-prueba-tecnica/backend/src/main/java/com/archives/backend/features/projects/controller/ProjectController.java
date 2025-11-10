@@ -57,10 +57,9 @@ public class ProjectController {
         return ResponseEntityHelper.toResponseEntity(result);
     }
 
-    //logica de negocio
-    // @PutMapping("/{idProject}/blocks/{blockCode}")
-    // public ResponseEntity<?> assignBlockToProject(@PathVariable String idProject, String blockCode){
-    //     var result = null;
-    //     return ResponseEntityHelper.toResponseEntity(result);
-    // }
+    @PutMapping("/{idProject}/blocks/{blockCode}")
+    public ResponseEntity<?> assignBlockToProject(@PathVariable String idProject, @PathVariable String blockCode) {
+        var result = projectService.assignBlockToProject(idProject, blockCode);
+        return ResponseEntityHelper.toResponseEntity(result);
+    }
 }
