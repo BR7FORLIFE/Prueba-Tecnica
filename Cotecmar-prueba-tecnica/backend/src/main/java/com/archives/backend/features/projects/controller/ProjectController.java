@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.archives.backend.features.projects.dtos.request.CreateProjectRequestDto;
@@ -38,6 +39,11 @@ public class ProjectController {
         return ResponseEntityHelper.toResponseEntity(result);
     }
 
+    @GetMapping("/all/full")
+    public ResponseEntity<?> getProjectFullData() {
+        return null;
+    }
+
     @GetMapping("/{idProject}")
     public ResponseEntity<?> listProjectById(@PathVariable String idProject) {
         var result = projectService.listProjectById(idProject);
@@ -57,9 +63,23 @@ public class ProjectController {
         return ResponseEntityHelper.toResponseEntity(result);
     }
 
+    @GetMapping("all/blocks")
+    public ResponseEntity<?> getAllProjectsWithBlocks(@PathVariable String idProject,
+            @RequestParam(required = false, defaultValue = "false") boolean include) {
+
+        return ResponseEntityHelper.toResponseEntity(null);
+    }
+
+    @GetMapping("/{idProject}/blocks")
+    public ResponseEntity<?> getBlocksByProject(@PathVariable String idProject) {
+        var result = projectService.getBlocksByProject(idProject);
+        return ResponseEntityHelper.toResponseEntity(result);
+    }
+
     @PutMapping("/{idProject}/blocks/{blockCode}")
     public ResponseEntity<?> assignBlockToProject(@PathVariable String idProject, @PathVariable String blockCode) {
         var result = projectService.assignBlockToProject(idProject, blockCode);
         return ResponseEntityHelper.toResponseEntity(result);
     }
+
 }
