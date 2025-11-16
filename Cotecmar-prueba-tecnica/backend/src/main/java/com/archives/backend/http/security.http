@@ -3,7 +3,7 @@ POST http://localhost:8080/api/auth/register HTTP/1.1
 Content-Type: application/json
 
 {
-    "username": "jose",
+    "username": "carlos",
     "password": "12345"
 }
 
@@ -11,10 +11,10 @@ Content-Type: application/json
 
 POST http://localhost:8080/api/auth/login HTTP/1.1
 Content-Type: application/json
-Cookie:AUTH_TOKEN=eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJqb3NlIiwicm9scyI6WyJST0xFX1VTRVIiXSwiaWF0IjoxNzYyNzI4MjkyLCJleHAiOjE3NjI3MzE4OTJ9._W3DI82DI9OfpJsnC_r8S9x4pAvDCj5KuOCmoAS8iwr5aVByI8RwlsGfINmSS1CzK9IdXGRR9n05QN8FGzrOSQ
+Cookie:AUTH_TOKEN=eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJjYXJsb3MiLCJyb2xzIjpbIlJPTEVfVVNFUiJdLCJpYXQiOjE3NjMzMDM1MjIsImV4cCI6MTc2MzMwNzEyMn0.Y9gAUVxULYeSY01HIDe1b02en2r5NK6ZsLmQCviSnincsJbmROxGyU2c8bSXhslxcBXTk1HsZEWG2i8RHxa29g
 
 {
-    "username": "pablo",
+    "username": "carlos",
     "password": "12345"
 }
 

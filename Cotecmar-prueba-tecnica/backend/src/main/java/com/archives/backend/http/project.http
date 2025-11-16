@@ -27,6 +27,9 @@ Content-Type: application/json
 ### borrar un proyecto
 DELETE http://localhost:8080/project/BICM HTTP/1.1
 
+### ver los bloques vinculado a un proyecto por la id de proyecto
+GET http://localhost:8080/project/BICM/blocks HTTP/1.1
+
 ### asignar un bloque a un proyecto
 ### BICM -> codigo del proyecto | 130-1110 -> codigo del bloque
 PUT http://localhost:8080/project/BICM/blocks/130-1110 HTTP/1.1
@@ -40,3 +43,6 @@ Content-Type: application/json
 {
     "blocks": ["135-1110", "130-3510", "130-3610", "135-3310", "100-2210"]
 }
+
+### listar todos los proyectos con todos sus bloques y piezas
+GET http://localhost:8080/project/all/full HTTP/1.1
