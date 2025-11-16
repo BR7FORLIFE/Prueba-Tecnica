@@ -1,11 +1,11 @@
 package com.archives.backend.features.projects.services;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.archives.backend.features.blocks.dtos.BlockDto;
 import com.archives.backend.features.blocks.models.BlocksModel;
 import com.archives.backend.features.blocks.repository.IBlockRepository;
 import com.archives.backend.features.projects.dtos.ProjectDto;
@@ -16,6 +16,7 @@ import com.archives.backend.features.projects.dtos.response.CreateProjectRespons
 import com.archives.backend.features.projects.dtos.response.DeleteProjectResponseDto;
 import com.archives.backend.features.projects.dtos.response.ListAllProjectResponseDto;
 import com.archives.backend.features.projects.dtos.response.ListProjectByIdResponseDto;
+import com.archives.backend.features.projects.dtos.response.SeeProjectWithBlocksById;
 import com.archives.backend.features.projects.dtos.response.UpdateProjectResponseDto;
 import com.archives.backend.features.projects.models.ProjectModel;
 import com.archives.backend.features.projects.repository.IProjectRepository;
@@ -141,12 +142,31 @@ public class ProjectService {
         BlocksModel model = blockRepository.findByBlockCode(blockCode)
                 .orElseThrow(() -> new IllegalArgumentException("Error to get the block"));
 
-        project.setBlocksModels(new ArrayList<>(List.of(model)));
+        project.getBlocksModels().add(model);
+        model.setProjectModel(project);
         projectRepository.save(project);
 
         AssignBlockToProjectResponseDto response = new AssignBlockToProjectResponseDto(idProject, blockCode,
                 "Assign succesfull!");
 
         return Result.ok(response);
+    }
+
+    public Result<SeeProjectWithBlocksById, Exception> getBlocksByProject(String idProject) {
+        boolean existsProject = projectRepository.existsByidProject(idProject);
+
+        if (!existsProject) {
+            return Result.error(new Exception("The currrent Project doesnt exists!"));
+        }
+        ProjectModel project = projectRepository.findProjectWithBlocks(idProject)
+                .orElseThrow(() -> new IllegalArgumentException("Error to get the current project!"));
+
+        List<BlockDto> blocks = project.getBlocksModels().stream().map((block) -> {
+            return new BlockDto(block.getBlockCode(), block.getName());
+        }).toList();
+
+        SeeProjectWithBlocksById result = new SeeProjectWithBlocksById(blocks, "blocks had been recuperated!");
+
+        return Result.ok(result);
     }
 }
