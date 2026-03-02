@@ -1,0 +1,13 @@
+name: "CrudClient"
+
+services:
+  postgres: 
+    container_name: "clientdb"
+    image: postgres:17
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+    
+    volumes:
+      - pgdata:/var/lib/postgresql
