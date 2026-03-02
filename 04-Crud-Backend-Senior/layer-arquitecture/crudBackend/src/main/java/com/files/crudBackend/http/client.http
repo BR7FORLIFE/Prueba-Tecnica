@@ -1,0 +1,12 @@
+POST http://localhost:8080/api/client HTTP/1.1
+Content-Type: application/json
+
+{
+    "name": "bryan",
+    "email": "asdad@gmail.com",
+    "cellphone": "356789456"
+}  
+
+### obtener los clientes paginados y ordenados
+GET http://localhost:8080/api/client?delete=false&page=0&size=5&sort=email
+
