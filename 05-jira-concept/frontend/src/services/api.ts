@@ -8,27 +8,19 @@ import type {
 import { API_PATHS } from "../config/axios";
 
 export async function registerApi(data: Register) {
-    try {
-        const { data: dataFetch } = await api.post<RegisterResponse>(
-            API_PATHS.AUTH.REGISTER,
-            data,
-        );
-
-        return dataFetch;
-    } catch {
-        throw new Error("error to apply the register");
-    }
+    const { data: dataFetch } = await api.post<RegisterResponse>(
+        API_PATHS.AUTH.REGISTER,
+        data,
+    );
+    console.log(dataFetch);
+    return dataFetch;
 }
 
 export async function loginApi(data: Login) {
-    try {
-        const { data: dataFetch } = await api.post<LoginResponse>(
-            API_PATHS.AUTH.LOGIN,
-            data,
-        );
+    const { data: dataFetch } = await api.post<LoginResponse>(
+        API_PATHS.AUTH.LOGIN,
+        data,
+    );
 
-        return dataFetch;
-    } catch {
-        throw new Error("error to apply the login");
-    }
+    return dataFetch;
 }

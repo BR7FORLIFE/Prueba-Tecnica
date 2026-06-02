@@ -6,7 +6,8 @@ export interface Register {
 
 export interface RegisterResponse {
     id: string;
-    accessToken: string;
+    role: string;
+    message: string;
 }
 
 export interface Login {
@@ -15,5 +16,14 @@ export interface Login {
 }
 
 export interface LoginResponse {
-    accessToken: string;
+    userId: string;
+    message: string;
 }
+
+export interface ApiError {
+    path: string;
+    message: string;
+    statusCode: number;
+    time: Date;
+}
+    
