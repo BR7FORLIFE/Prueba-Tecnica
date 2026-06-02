@@ -6,20 +6,34 @@ import type { Register } from "../../services/models/models";
 import { registerApi } from "../../services/api";
 import { useAuthStore } from "../../stores/user-store";
 import { Loading } from "../../components/spinners";
-
+import { Link, useNavigate } from "react-router";
+import type { ApiError } from "../../services/models/models";
+import { AxiosError } from "axios";
 //useMutation -> cuando quieres alterar el estado del backend ejemplo escrituras o peticiones de escrituras
 // useQuery -> cuando quieres leer del backend ejemplo lecturas
 
 export function Register() {
   const userAuth = useAuthStore();
+  const navigate = useNavigate();
+
   const [user, setUser] = useState<Register>({
     name: "",
     email: "",
     password: "",
   });
 
+  const [error, setError] = useState<string>("");
+
   const mutation = useMutation({
     mutationFn: registerApi,
+    onSuccess: (data) => {
+      userAuth.setId(data.id);
+      userAuth.setRole(data.role);
+      navigate("/auth/login");
+    },
+    onError: (error: AxiosError<ApiError>) => {
+      setError(error.response.data.message)
+    },
   });
 
   const obtainInfoUser = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -32,9 +46,6 @@ export function Register() {
   const sendRegister = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     mutation.mutate(user); //hacemos la mutacion llamando a la api y enviando los datos
-
-    userAuth.setId(mutation.data.id);
-    userAuth.setAccessToken(mutation.data.accessToken);
   };
 
   return (
@@ -67,7 +78,9 @@ export function Register() {
         <ButtonForm content="register" fn={sendRegister} />
 
         {mutation.isPending && <Loading data="loading..." />}
+        {error && <p className="text-neutral-600 text-sm">{error}</p>}
       </form>
+      <Link to='/auth/login' replace className="text-neutral-700/70 text-sm">You Have Account? Login Here</Link>
     </section>
   );
 }

@@ -2,20 +2,32 @@ import { useState } from "react";
 import { ButtonForm } from "../../components/buttons";
 import { InputForm } from "../../components/inputs";
 import { useAuthStore } from "../../stores/user-store";
-import type { Login } from "../../services/models/models";
+import type { ApiError, Login } from "../../services/models/models";
 import { useMutation } from "@tanstack/react-query";
 import { loginApi } from "../../services/api";
+import { Link, useNavigate } from "react-router";
+import type { AxiosError } from "axios";
 
 export function Login() {
   const userAuth = useAuthStore();
+  const navigate = useNavigate();
 
   const [login, setLogin] = useState<Login>({
     email: "",
     password: "",
   });
 
+  const [error, SetError] = useState<string>("")
+
   const mutation = useMutation({
     mutationFn: loginApi,
+    onSuccess: (data) =>{
+      userAuth.setId(data.userId)
+      navigate("/dashboard")
+    },
+    onError: (error: AxiosError<ApiError>) => {
+      SetError(error.response.data.message)
+    }
   });
 
   const obtainInfo = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -28,8 +40,6 @@ export function Login() {
   const sendInfo = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     mutation.mutate(login); //hacemos la mutacion llamando a la api y enviando los datos
-
-    userAuth.setAccessToken(mutation.data.accessToken);
   };
 
   return (
@@ -52,7 +62,9 @@ export function Login() {
         />
 
         <ButtonForm content="login" fn={sendInfo} />
+        {error && <p className="text-neutral-600 text-sm">{error}</p>}
       </form>
+      <Link to='/auth/register' replace className="text-neutral-700/70 text-sm">Not Have Account? Register Here</Link>
     </section>
   );
 }
