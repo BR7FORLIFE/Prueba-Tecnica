@@ -4,7 +4,7 @@ import { useAuthStore } from "../../stores/user-store";
 import { Header } from "./header";
 
 export function DashBoardLayout() {
-  const { id ,role } = useAuthStore();
+  const { id , role } = useAuthStore();
 
   return (
     <section className="w-screen h-dvh flex flex-col justify-center items-center">

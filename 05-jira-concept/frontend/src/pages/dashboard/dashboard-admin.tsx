@@ -1,3 +1,3 @@
 export function AdminDashboard(){
-    return <section></section>
+    return <section>Aca el diseño para crear los proyectos y tareas</section>
 }
