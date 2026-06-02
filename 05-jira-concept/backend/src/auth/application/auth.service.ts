@@ -17,6 +17,12 @@ export interface PayloadJwt {
 }
 export interface RegisterResponse {
   id: string;
+  role: string;
+}
+
+export interface LoginResponse {
+  userId: string;
+  accessToken: string;
 }
 
 @Injectable()
@@ -43,10 +49,11 @@ export class AuthService {
 
     return {
       id: result.id,
+      role: result.rol,
     };
   }
 
-  async login(email: string, password: string) {
+  async login(email: string, password: string): Promise<LoginResponse> {
     const user = await this.authRepository.findByEmail(email);
 
     if (!user) throw new UserNotFoundExeption();
@@ -63,6 +70,6 @@ export class AuthService {
 
     const accessToken = await this.jwtService.signAsync(payload);
 
-    return { accessToken };
+    return { userId: user.id, accessToken };
   }
 }

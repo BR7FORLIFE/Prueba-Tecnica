@@ -12,10 +12,11 @@ export class AuthController {
 
   @Post('register')
   async register(@Body() dto: RegisterDto) {
-    const { id } = await this.authService.register(dto);
+    const { id, role } = await this.authService.register(dto);
 
     return {
       id,
+      role,
       message: 'Register succesfull',
     };
   }
@@ -25,7 +26,7 @@ export class AuthController {
     @Body() dto: LoginDto,
     @Res({ passthrough: true }) res: Response,
   ) {
-    const { accessToken } = await this.authService.login(
+    const { userId, accessToken } = await this.authService.login(
       dto.email,
       dto.password,
     );
@@ -38,6 +39,6 @@ export class AuthController {
       maxAge: 900000,
     });
 
-    return { message: 'login succesfull!' };
+    return { userId, message: 'login succesfull!' };
   }
 }
