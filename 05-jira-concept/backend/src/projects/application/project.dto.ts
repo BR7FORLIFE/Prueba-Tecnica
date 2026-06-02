@@ -9,3 +9,8 @@ export class CreateProject {
   @IsNotEmpty()
   description: string;
 }
+
+export class AssignmentTaskToProject {
+  projectId: string;
+  taskId: string;
+}

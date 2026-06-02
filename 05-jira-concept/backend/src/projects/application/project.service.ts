@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import type { ProjectRepository } from '../infra/project.repository.js';
+import { ProjectRepository } from '../infra/project.repository.js';
 
 @Injectable()
 export class ProjectService {

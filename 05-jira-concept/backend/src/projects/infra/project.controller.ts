@@ -1,7 +1,20 @@
-import { Body, Controller, Delete, Get, Patch, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Patch,
+  Post,
+  UseGuards,
+} from '@nestjs/common';
 import type { CreateProject } from '../application/project.dto.js';
-import type { ProjectService } from '../application/project.service.js';
+import { ProjectService } from '../application/project.service.js';
+import { JwtGuard } from '../../auth/application/guards/jwt.guard.js';
+import { RoleGuard } from '../../auth/application/guards/role.guard.js';
+import { Roles } from '../../core/decorators/decorators.js';
 
+@UseGuards(JwtGuard, RoleGuard)
+@Roles('ADMIN')
 @Controller({
   version: '1',
   path: 'project',
