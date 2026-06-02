@@ -1,7 +1,7 @@
 services:
   postgres: 
     image: postgres:17
-    container_name: backend
+    container_name: database
     ports: 
       - 5432:5432
     environment: 
@@ -17,7 +17,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    
+    container_name: backend
     networks:
       - backend-network
 
