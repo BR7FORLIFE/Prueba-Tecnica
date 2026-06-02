@@ -6,6 +6,8 @@ import { JwtStrategyImp } from './application/strategies/jwt-strategy.js';
 import { JwtModule } from '@nestjs/jwt';
 
 import { PRIVATE_KEY } from '../../constant.js';
+import { PrismaModule } from '../config/prisma.module.js';
+import { RoleGuard } from './application/guards/role.guard.js';
 
 @Module({
   imports: [
@@ -15,8 +17,9 @@ import { PRIVATE_KEY } from '../../constant.js';
         expiresIn: '15m',
       },
     }),
+    PrismaModule,
   ],
   controllers: [AuthController],
-  providers: [AuthService, AuthRepository, JwtStrategyImp],
+  providers: [AuthService, AuthRepository, JwtStrategyImp, RoleGuard],
 })
 export class AuthModule {}

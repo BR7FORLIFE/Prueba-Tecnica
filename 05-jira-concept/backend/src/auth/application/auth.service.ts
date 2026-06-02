@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
-import type { JwtService } from '@nestjs/jwt';
+import { JwtService } from '@nestjs/jwt';
 import type { RegisterDto } from './auth.dto.js';
-import type { AuthRepository } from '../infra/auth.repository.js';
+import { AuthRepository } from '../infra/auth.repository.js';
 import {
   PasswordException,
   UserAlreadyExistsException,
@@ -10,15 +10,13 @@ import {
 import type { UserModel } from '../domain/user.model.js';
 import * as bcrypt from 'bcrypt';
 
-interface RegisterResponse {
-  id: string;
-  accessToken: string;
-}
-
 export interface PayloadJwt {
   id: string;
   email: string;
   rol: string;
+}
+export interface RegisterResponse {
+  id: string;
 }
 
 @Injectable()
@@ -41,19 +39,10 @@ export class AuthService {
       rol: 'USER',
     };
 
-    const payload: PayloadJwt = {
-      id: newUser.id,
-      email: newUser.email,
-      rol: newUser.rol,
-    };
-
     const result = await this.authRepository.save(newUser);
-
-    const accessToken = await this.jwtService.signAsync(payload);
 
     return {
       id: result.id,
-      accessToken,
     };
   }
 

@@ -7,7 +7,7 @@ export class AuthRepository {
   constructor(private db: PrismaDB) {}
 
   async findByEmail(email: string) {
-    const user = this.db.user.findUnique({
+    const user = await this.db.user.findUnique({
       where: { email },
     });
 
@@ -15,7 +15,7 @@ export class AuthRepository {
   }
 
   async save(data: UserModel) {
-    const result = this.db.user.create({
+    const result = await this.db.user.create({
       data,
     });
 
