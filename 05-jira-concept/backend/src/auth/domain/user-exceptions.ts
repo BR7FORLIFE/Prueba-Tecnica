@@ -15,3 +15,9 @@ export class PasswordException extends Error {
     super('password is incorrect');
   }
 }
+
+export class NotAllowedUnathorize extends Error {
+  constructor() {
+    super('access not allowed');
+  }
+}
