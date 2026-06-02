@@ -14,4 +14,5 @@ function obtainKeys(path: string) {
   return parserKey;
 }
 
-export const PRIVATE_KEY = obtainKeys('./src/config/keys/private.pem');
+export const PRIVATE_KEY = obtainKeys('src/config/keys/private.pem');
+export const DATABASE_URL = process.env.DATABASE_URL;
